@@ -17,7 +17,7 @@ public class SettingFrame extends Project2{
 
         JFrame jFrame = new JFrame();
 
-        jFrame.setSize(500,550);
+        jFrame.setSize(500,600);
         jFrame.setResizable(false);
         jFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         jFrame.setVisible(true);
@@ -48,7 +48,7 @@ public class SettingFrame extends Project2{
         JTextArea textArea2 = new JTextArea("");
         JTextArea textArea3 = new JTextArea("");
 
-        JLabel label4 = new JLabel("Adding circle   (X=Y=-1  -->  Random) , (i,j like 1.2 must enter)");
+        JLabel label4 = new JLabel("Adding circle   (X=Y=-1  -->  Random)");
         JLabel label5 = new JLabel("Name :");
         JLabel label55 = new JLabel("Name :");
         JLabel label6 = new JLabel("X :");
@@ -56,13 +56,17 @@ public class SettingFrame extends Project2{
         JLabel label8 = new JLabel("i :");
         JLabel label9 = new JLabel("j :");
 
-        JLabel labela = new JLabel("Changing Speed :");
+        JLabel labela = new JLabel("Changing (x,y empty --> not changing) :");
         JLabel labelb = new JLabel("Name :");
         JLabel labelc = new JLabel("i :");
         JLabel labeld = new JLabel("j :");
         JLabel labele = new JLabel("File :");
 
-        JTextField textField1 ,textField2, textField3, textField4,textField5 ,textField6,textField7,textField8 ,textField9,textField10;
+        JLabel labelaa = new JLabel("X :");
+        JLabel labelbb = new JLabel("Y :");
+
+
+        JTextField textField1 ,textField2, textField3, textField4,textField5 ,textField6,textField7,textField8 ,textField9,textField10,textFieldaa,textFieldbb;
         textField1= new JTextField();
         textField2= new JTextField();
         textField3= new JTextField();
@@ -71,7 +75,8 @@ public class SettingFrame extends Project2{
         textField8= new JTextField();
         textField9= new JTextField();
         textField10= new JTextField();
-
+        textFieldaa= new JTextField();
+        textFieldbb= new JTextField();
 
         JLabel label10 = new JLabel("Removing circle :");
         textField5= new JTextField();
@@ -110,26 +115,34 @@ public class SettingFrame extends Project2{
         jButton1.setBounds(10,210,480,25);
 
         label10.setBounds(10,240,150,40);
+
+
         label55.setBounds(10,270,60,40);
         textField6.setBounds(65,283,100,20);
         jButton2.setBounds(190,280,140,25);
         jButton4.setBounds(350,280,140,25);
 
-        labela.setBounds(10,320,200,40);
+        labela.setBounds(10,320,290,40);
 
         labelb.setBounds(10,350,60,40);
         textField7.setBounds(65,363,100,20);
-        labelc.setBounds(215,350,60,40);
-        textField8.setBounds(245,363,70,20);
-        labeld.setBounds(355,350,60,40);
-        textField9.setBounds(385,363,70,20);
 
-        jButton5.setBounds(10,390,480,25);
+        labelaa.setBounds(210,350,60,40);
+        textFieldaa.setBounds(245,363,70,20);
+        labelbb.setBounds(350,350,60,40);
+        textFieldbb.setBounds(385,363,70,20);
 
-        labele.setBounds(10,435,60,40);
-        textField10.setBounds(65,443,425,25);
+        labelc.setBounds(215,390,60,40);
+        textField8.setBounds(245,403,70,20);
+        labeld.setBounds(355,390,60,40);
+        textField9.setBounds(385,403,70,20);
 
-        jButton3.setBounds(10,480,480,25);
+        jButton5.setBounds(10,430,480,25);
+
+        labele.setBounds(10,475,60,40);
+        textField10.setBounds(65,483,425,25);
+
+        jButton3.setBounds(10,520,480,25);
 
 
 
@@ -155,6 +168,13 @@ public class SettingFrame extends Project2{
                     if ((x>=0 || x==-1)&&(y>=0 || y==-1)&&(textField1.getText()!="")) {
                         Circle circle = new Circle(x, y, i, j);
                         settings.add_circle(textField1.getText(),circle);
+                        textField1.setText("");
+                        textField2.setText("");
+                        textField3.setText("");
+                        textField4.setText("");
+                        textField5.setText("");
+                        JOptionPane.showMessageDialog(null,"Added!","SUCCESS",JOptionPane.INFORMATION_MESSAGE,null);
+
                     }else {
                         JOptionPane.showMessageDialog(null,"incorrect values","ERROR",JOptionPane.ERROR_MESSAGE,null);
                     }
@@ -201,6 +221,7 @@ public class SettingFrame extends Project2{
                     settings.setIs_fill(checkBox.isSelected());
                     Save_Setting sw = new Save_Setting(settings);
                     sw.save();
+                    main(new String[0]);
                 }
             }
         });
@@ -212,10 +233,29 @@ public class SettingFrame extends Project2{
                 super.mouseClicked(e);
                 if (settings.exist(textField7.getText())){
                     try{
-                        Double i=Double.valueOf(textField8.getText());
-                        Double j = Double.valueOf(textField9.getText());
-                        settings.change_speed(textField7.getText(),i,j);
-                        JOptionPane.showMessageDialog(null,"Changed!","SUCCESS",JOptionPane.INFORMATION_MESSAGE,null);
+                        if (textFieldaa.getText().equals("") && textFieldbb.getText().equals("")) {
+                            Double i = Double.valueOf(textField8.getText());
+                            Double j = Double.valueOf(textField9.getText());
+                            settings.change_speed(textField7.getText(), i, j);
+                            JOptionPane.showMessageDialog(null, "Changed!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE, null);
+                            textField7.setText("");
+                            textField8.setText("");
+                            textField9.setText("");
+                        }else {
+                            int x,y;
+                            Double i,j;
+                            x=Integer.parseInt(textFieldaa.getText());
+                            y=Integer.parseInt(textFieldbb.getText());
+                            i = Double.valueOf(textField8.getText());
+                            j = Double.valueOf(textField9.getText());
+                            settings.change(textField7.getText(),x,y,i,j);
+                            JOptionPane.showMessageDialog(null, "Changed!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE, null);
+                            textField7.setText("");
+                            textField8.setText("");
+                            textField9.setText("");
+                            textFieldaa.setText("");
+                            textFieldbb.setText("");
+                        }
                     }catch (Exception e1){
                         JOptionPane.showMessageDialog(null,"incorrect values!","ERROR",JOptionPane.ERROR_MESSAGE,null);
                     }
@@ -261,6 +301,10 @@ public class SettingFrame extends Project2{
         jFrame.add(jButton5);
         jFrame.add(labele);
         jFrame.add(textField10);
+        jFrame.add(labelaa);
+        jFrame.add(textFieldaa);
+        jFrame.add(labelbb);
+        jFrame.add(textFieldbb);
         jFrame.setLayout(null);
     }
 
@@ -274,6 +318,7 @@ public class SettingFrame extends Project2{
         return c;
     }
     public static int[] get_num(String s){
+        s+=',';
         int[] num = new int[3];
         String p="";
         int t=0;
@@ -281,11 +326,15 @@ public class SettingFrame extends Project2{
             try {
                 p+=Integer.parseInt(s.charAt(i)+"")+"";
             }catch (Exception e){
-                num[t]=Integer.valueOf(p);
-                p="";
-                t++;
+                if (s.charAt(i)==',') {
+                    num[t] = Integer.valueOf(p);
+                    p = "";
+                    t++;
+                }else {
+                    Exception E;
+                }
             }
-            if (t==2)
+            if (t==3)
                 break;
         }
         return num;

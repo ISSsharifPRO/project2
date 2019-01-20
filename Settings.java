@@ -88,6 +88,17 @@ public class Settings implements Serializable{
         circles.get(ii).setI(i);
         circles.get(ii).setJ(j);
     }
+    public void change(String s,int x, int y, Double i, Double j){
+        int ii;
+        for ( ii=0; ii<cir_name.size(); ii++){
+            if (s.equals(cir_name.get(ii)))
+                break;
+        }
+        circles.get(ii).setI(i);
+        circles.get(ii).setJ(j);
+        circles.get(ii).setX(x);
+        circles.get(ii).setY(y);
+    }
 
     public void setSpeed(int speed) {
         this.speed = speed;

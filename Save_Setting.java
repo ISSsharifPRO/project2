@@ -10,44 +10,36 @@ public class Save_Setting {
     }
 public void save() {
     try {
-        FileOutputStream f = new FileOutputStream(new File("myObjects.dat"));
-
+        FileOutputStream f = new FileOutputStream(new File(location.get_address()));
         ObjectOutputStream o = new ObjectOutputStream(f);
-
-        // Write objects to file
         o.writeObject(settings);
-
         o.close();
         f.close();
-
-
-
     } catch (FileNotFoundException e) {
-        System.out.println("File not found");
+
     } catch (IOException e) {
-        System.out.println("Error initializing stream");
     }
 }
-
     public Save_Setting() {
     }
 
     public Settings read(){
         Settings s =null;
     FileInputStream fi = null;
-    try {
-        fi = new FileInputStream(new File("myObjects.dat"));
-        ObjectInputStream oi = new ObjectInputStream(fi);
 
-        // Read objects
+        File ff;
+
+   ff=new File(location.get_address());
+   if (!ff.exists())
+       ff = new File("./src/project2/myObjects.dat");
+    try {
+        fi = new FileInputStream(ff);
+        ObjectInputStream oi = new ObjectInputStream(fi);
         Settings pr1 = (Settings) oi.readObject();
         s=pr1;
     } catch (FileNotFoundException e) {
-        e.printStackTrace();
     } catch (IOException e) {
-        e.printStackTrace();
     } catch (ClassNotFoundException e) {
-        e.printStackTrace();
     }
 return s;
 }

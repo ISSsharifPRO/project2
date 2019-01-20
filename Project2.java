@@ -3,8 +3,10 @@ package project2;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serializable;
 
-public class Project2 extends JFrame{
+public class Project2 extends JFrame implements Serializable {
+
     int x_m=800, y_m=800;
     CirPo cirPo = new CirPo(x_m,y_m-50);
     Settings settings = new Settings();
@@ -84,6 +86,7 @@ public class Project2 extends JFrame{
 //setting button
         JButton jb = new JButton("setting");
         jb.setBackground(new Color(50,50,50));
+        jb.setBorderPainted(true);
         jb.setForeground(Color.white);
         jb.setVisible(true);
         jb.addMouseListener(new MouseAdapter() {

@@ -1,10 +1,11 @@
 package project2;
 
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class AllCircle {
+public class AllCircle implements Serializable {
     private ArrayList<Circle> circles = new ArrayList();
     private int x_m,y_m;
 

@@ -5,10 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
+import java.io.Serializable;
 
-public class CirPo extends JPanel implements ActionListener {
+public class CirPo extends JPanel implements ActionListener, Serializable {
+
     String speed="";
     Settings settings = new Settings();
+
     Timer timer = new Timer(settings.getSpeed(),this);
     AllCircle allCircle;
     public CirPo(int width, int length){

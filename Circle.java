@@ -1,6 +1,9 @@
 package project2;
 
-public class Circle{
+import java.io.Serializable;
+
+public class Circle implements Serializable {
+
     private int x,y;
     Double i,j;
     public Circle(int x, int y, Double i, Double j){

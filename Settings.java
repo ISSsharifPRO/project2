@@ -129,5 +129,9 @@ public class Settings implements Serializable{
         this.circle_color=s.getCircle_color();
         this.is_fill=s.getIs_fill();
     }
-
+    public void new_circle(AllCircle allCircle){
+        for (int i=0; i<circles.size(); i++){
+            circles.set(i,allCircle.get_circle().get(i));
+        }
+   }
 }

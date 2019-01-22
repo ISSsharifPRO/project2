@@ -11,19 +11,38 @@ public class CirPo extends JPanel implements ActionListener, Serializable {
 
     String speed="";
     Settings settings = new Settings();
-
     Timer timer = new Timer(settings.getSpeed(),this);
     AllCircle allCircle;
+
+    public CirPo(int width , int length, Settings settings){
+        allCircle=new AllCircle(width,length);
+        this.settings=settings;
+
+        if (settings.getCircles().size() != 0) {
+            for (int i=0; i<settings.circles.size(); i++) {
+                Circle c = settings.get_cir(i);
+                if (c.getX() == -1 && c.getY() == -1)
+                    allCircle.add_circle_rand(settings.cir_name.get(i),c.getJ(), c.getJ());
+                if (c.getX() >= 0 && c.getY() >= 0)
+                    allCircle.add_circle(settings.cir_name.get(i),c.getX(), c.getY(), c.getI(), c.getJ());
+            }
+        }
+
+        timer.start();
+    }
+
+
     public CirPo(int width, int length){
         allCircle=new AllCircle(width,length);
 
 
         if (settings.getCircles().size() != 0) {
-            for (Circle c : settings.getCircles()) {
+            for (int i=0; i<settings.circles.size(); i++) {
+                Circle c = settings.get_cir(i);
                 if (c.getX() == -1 && c.getY() == -1)
-                    allCircle.add_circle_rand(c.getJ(), c.getJ());
+                    allCircle.add_circle_rand(settings.cir_name.get(i),c.getJ(), c.getJ());
                 if (c.getX() >= 0 && c.getY() >= 0)
-                    allCircle.add_circle(c.getX(), c.getY(), c.getI(), c.getJ());
+                    allCircle.add_circle(settings.cir_name.get(i),c.getX(), c.getY(), c.getI(), c.getJ());
             }
         }
 
@@ -60,5 +79,13 @@ public class CirPo extends JPanel implements ActionListener, Serializable {
             timer.stop();
         if (arg0==1)
             timer.start();
+    }
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public AllCircle getAllCircle(){
+        return this.allCircle;
     }
 }

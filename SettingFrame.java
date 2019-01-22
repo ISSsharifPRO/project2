@@ -16,14 +16,12 @@ public class SettingFrame extends Project2{
         this.y_m=y_m;
 
         JFrame jFrame = new JFrame();
-
-        jFrame.setSize(500,600);
+        jFrame.setSize(500,580);
         jFrame.setResizable(false);
         jFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         jFrame.setVisible(true);
         jFrame.setLocationRelativeTo(null);
         jFrame.setResizable(false);
-
         jFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -43,11 +41,9 @@ public class SettingFrame extends Project2{
         JLabel label1 = new JLabel("Background color :");
         JLabel label2 = new JLabel("Circles color :");
         JLabel label3 = new JLabel("Timer speed :");
-
         JTextArea textArea1 = new JTextArea("");
         JTextArea textArea2 = new JTextArea("");
         JTextArea textArea3 = new JTextArea("");
-
         JLabel label4 = new JLabel("Adding circle   (X=Y=-1  -->  Random)");
         JLabel label5 = new JLabel("Name :");
         JLabel label55 = new JLabel("Name :");
@@ -55,17 +51,13 @@ public class SettingFrame extends Project2{
         JLabel label7 = new JLabel("Y :");
         JLabel label8 = new JLabel("i :");
         JLabel label9 = new JLabel("j :");
-
         JLabel labela = new JLabel("Changing (x,y empty --> not changing) :");
         JLabel labelb = new JLabel("Name :");
         JLabel labelc = new JLabel("i :");
         JLabel labeld = new JLabel("j :");
         JLabel labele = new JLabel("File :");
-
         JLabel labelaa = new JLabel("X :");
         JLabel labelbb = new JLabel("Y :");
-
-
         JTextField textField1 ,textField2, textField3, textField4,textField5 ,textField6,textField7,textField8 ,textField9,textField10,textFieldaa,textFieldbb;
         textField1= new JTextField();
         textField2= new JTextField();
@@ -77,81 +69,58 @@ public class SettingFrame extends Project2{
         textField10= new JTextField();
         textFieldaa= new JTextField();
         textFieldbb= new JTextField();
-
         JLabel label10 = new JLabel("Removing circle :");
         textField5= new JTextField();
         textField6= new JTextField();
-
         JButton jButton1 = new JButton("Add");
         JButton jButton2 = new JButton("Remove");
         JButton jButton3 = new JButton("APPLY");
         JButton jButton4 = new JButton("Show All");
         JButton jButton5 = new JButton("Change");
-
-
         checkBox.setBounds(10,0,100,40);
         label1.setBounds(190,0,200,40);
         textArea1.setBounds(340,14,150,15);
-
         label3.setBounds(10,40,100,40);
         textArea3.setBounds(110,54,30,15);
         label2.setBounds(190,40,200,40);
         textArea2.setBounds(340,54,150,15);
-
         label4.setBounds(10,80,600,40);
-
         label5.setBounds(10,120,60,40);
         textField1.setBounds(65,132,100,20);
         label6.setBounds(210,120,60,40);
         textField2.setBounds(245,132,70,20);
         label7.setBounds(350,120,60,40);
         textField3.setBounds(385,132,70,20);
-
         label8.setBounds(215,160,60,40);
         textField4.setBounds(245,172,70,20);
         label9.setBounds(355,160,60,40);
         textField5.setBounds(385,172,70,20);
-
         jButton1.setBounds(10,210,480,25);
-
         label10.setBounds(10,240,150,40);
-
-
         label55.setBounds(10,270,60,40);
         textField6.setBounds(65,283,100,20);
         jButton2.setBounds(190,280,140,25);
         jButton4.setBounds(350,280,140,25);
-
         labela.setBounds(10,320,290,40);
-
         labelb.setBounds(10,350,60,40);
         textField7.setBounds(65,363,100,20);
-
         labelaa.setBounds(210,350,60,40);
         textFieldaa.setBounds(245,363,70,20);
         labelbb.setBounds(350,350,60,40);
         textFieldbb.setBounds(385,363,70,20);
-
         labelc.setBounds(215,390,60,40);
         textField8.setBounds(245,403,70,20);
         labeld.setBounds(355,390,60,40);
         textField9.setBounds(385,403,70,20);
-
         jButton5.setBounds(10,430,480,25);
-
         labele.setBounds(10,475,60,40);
         textField10.setBounds(65,483,425,25);
-
         jButton3.setBounds(10,520,480,25);
-
-
-
         textField10.setText(new Setting_loc().get_address());
         checkBox.setSelected(settings.getIs_fill());
         textArea1.setText(settings.getBg_color().getRed()+","+settings.getBg_color().getGreen()+","+settings.getBg_color().getBlue());
         textArea2.setText(settings.getCircle_color().getRed()+","+settings.getCircle_color().getGreen()+","+settings.getCircle_color().getBlue());
         textArea3.setText(settings.getSpeed()+"");
-
 
 // add
         jButton1.addMouseListener(new MouseAdapter() {
@@ -166,15 +135,18 @@ public class SettingFrame extends Project2{
                     i=Double.valueOf(textField4.getText());
                     j=Double.valueOf(textField5.getText());
                     if ((x>=0 || x==-1)&&(y>=0 || y==-1)&&(textField1.getText()!="")) {
-                        Circle circle = new Circle(x, y, i, j);
-                        settings.add_circle(textField1.getText(),circle);
-                        textField1.setText("");
-                        textField2.setText("");
-                        textField3.setText("");
-                        textField4.setText("");
-                        textField5.setText("");
-                        JOptionPane.showMessageDialog(null,"Added!","SUCCESS",JOptionPane.INFORMATION_MESSAGE,null);
-
+                        if(!settings.exist(textField1.getText())) {
+                            Circle circle = new Circle(x, y, i, j);
+                            settings.add_circle(textField1.getText(), circle);
+                            textField1.setText("");
+                            textField2.setText("");
+                            textField3.setText("");
+                            textField4.setText("");
+                            textField5.setText("");
+                            JOptionPane.showMessageDialog(null, "Added!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE, null);
+                        }else {
+                            JOptionPane.showMessageDialog(null,"repeated name!","ERROR",JOptionPane.ERROR_MESSAGE,null);
+                        }
                     }else {
                         JOptionPane.showMessageDialog(null,"incorrect values","ERROR",JOptionPane.ERROR_MESSAGE,null);
                     }
@@ -213,7 +185,7 @@ public class SettingFrame extends Project2{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                if (textField10.getText() !="" && textArea1.getText() != "" && textArea2.getText()!="" && textArea3.getText()!=""){
+                if (!textField10.getText().equals("") && !textArea1.getText().equals("") && !textArea2.getText().equals("") && !textArea3.getText().equals("")){
                     settings.setFile(textField10.getText());
                     settings.setBg_color(get_color(textArea1.getText()));
                     settings.setCircle_color(get_color(textArea2.getText()));
@@ -265,7 +237,6 @@ public class SettingFrame extends Project2{
             }
         });
 
-
         jFrame.add(checkBox);
         jFrame.add(label1);
         jFrame.add(textArea1);
@@ -307,7 +278,6 @@ public class SettingFrame extends Project2{
         jFrame.add(textFieldbb);
         jFrame.setLayout(null);
     }
-
 
     public static Color get_color(String s){
         Color c=new Color(192,192,192);
